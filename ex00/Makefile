@@ -13,7 +13,7 @@
 SRC = main.cpp Fixed.cpp
 INC = Fixed.hpp
 CC = c++
-NAME = fixed
+NAME = fixed_0
 CFLAGS = -Werror -Wextra -Wall -std=c++98 -g
 
 OBJ = $(SRC:%.cpp=%.o)

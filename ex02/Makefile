@@ -13,7 +13,7 @@
 SRC = main.cpp Fixed.cpp
 INC = Fixed.hpp
 CC = c++
-NAME = fixed_01
+NAME = fixed_02
 CFLAGS = -Werror -Wextra -Wall -std=c++98 -g
 
 OBJ = $(SRC:%.cpp=%.o)
@@ -32,6 +32,9 @@ clean :
 .PHONY : fclean
 fclean : clean
 	rm -rf $(NAME)
+
+$(OBJ_DIR) :
+	mkdir -p $(OBJ_DIR)
 
 $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)

@@ -28,12 +28,11 @@ Fixed::Fixed(const int value)
 
 Fixed::Fixed(const float value)
 {
-	int valueInt = (int)round(value);
 	std::cout << "Float constructor called" << std::endl;
-	this->_value = (valueInt << this->_nbFractionalBits);
-	this->_value += value - valueInt;
+	this->_value = (int)round(pow(2, this->_nbFractionalBits) * value);
 }
-Fixed::Fixed(Fixed &other) : _value(other._value)
+
+Fixed::Fixed(const Fixed &other) : _value(other._value)
 {
 	std::cout << "Copy constructor called" << std::endl;
 }
@@ -50,7 +49,7 @@ Fixed &Fixed::operator=(const Fixed &other)
 	return (*this);
 }
 
-int Fixed::getRawBits(void)
+int Fixed::getRawBits(void) const
 {
 	float returnValue;
 	returnValue = 0;
@@ -64,16 +63,20 @@ void Fixed::setRawBits(const int value)
 	this->_value = value;
 }
 
-float Fixed::toFloat(void)
+float Fixed::toFloat(void) const
 {
-	float returnValue;
-
-	// returnValue = (this->_value << this->_nbFractionalBits);
-	returnValue = (this->_value >> this->_nbFractionalBits);
-	return (returnValue);
+	// return ((float)this->_value / (1 << this->_nbFractionalBits)); // copilot
+	return (((float)this->_value / pow(2, this->_nbFractionalBits)));
 }
 
-int	Fixed::toInt(void)
+int	Fixed::toInt(void) const
 {
 	return (this->_value >> this->_nbFractionalBits);
 }
+
+std::ostream& operator<<(std::ostream &stream, const Fixed &n)
+{
+	stream << n.toFloat();
+	return (stream);
+}
+
